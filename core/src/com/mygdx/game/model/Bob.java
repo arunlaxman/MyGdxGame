@@ -67,7 +67,7 @@ public class Bob {
 
 	public void update(float delta) {
 		stateTime += delta;
-		//position.add(velocity.tmp().mul(delta));
+		position.mulAdd(velocity, delta);
 	}
 	
 }
