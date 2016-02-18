@@ -23,19 +23,11 @@ public class Ball {
         return velocity;
     }
 
-    public void goBackward() {
+    public void revertHorizontally() {
         velocity.scl(new Vector2(-1, 1));
     }
 
-    public void goForward() {
-        velocity.scl(new Vector2(-1, 1));
-    }
-
-    public void goUp() {
-        velocity.scl(new Vector2(1, -1));
-    }
-
-    public void goDown() {
+    public void revertVertically() {
         velocity.scl(new Vector2(1, -1));
     }
 

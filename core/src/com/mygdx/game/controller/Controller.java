@@ -21,20 +21,16 @@ public class Controller {
         //System.out.println("X : " + ball.getPosition().x + " w : " + width + " Y : " + ball.getPosition().y + " h : " + height);
         ball.update();
 
-        if(ball.getPosition().x >= (width - 50)) {
-            ball.goBackward();
+        float ballX = ball.getPosition().x, ballY = ball.getPosition().y;
+
+        if(ballX >= (width - 10) || ballX <= 0) {
+            ball.revertHorizontally();
             //System.out.println("Going backward...");
-        } else if(ball.getPosition().x <= 0) {
-            ball.goForward();
-            //System.out.println("Going forward...");
         }
 
-        if(ball.getPosition().y >= (height - 50)) {
-            ball.goDown();
+        if(ballY >= (height - 10) || ballY <= 0) {
+            ball.revertVertically();
             //System.out.println("Going down...");
-        } else if(ball.getPosition().y <= 0) {
-            ball.goUp();
-            //System.out.println("Going up...");
         }
     }
 }
