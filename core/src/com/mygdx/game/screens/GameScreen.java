@@ -21,7 +21,7 @@ public class GameScreen implements Screen, InputProcessor {
 	public void show() {
 		ball = new Ball();
 		renderer = new Renderer(ball);
-		controller = new Controller(ball, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+		controller = new Controller(ball);
 		Gdx.input.setInputProcessor(this);
 	}
 
@@ -36,7 +36,9 @@ public class GameScreen implements Screen, InputProcessor {
 	
 	@Override
 	public void resize(int width, int height) {
-		controller.setSize(height, width);
+		System.out.println("Screen width: " + width + " height: " + height);
+		controller.setScreenSize(height, width);
+		renderer.setScreenSize(height, width);
 	}
 
 	@Override

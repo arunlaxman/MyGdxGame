@@ -12,7 +12,7 @@ public class Ball {
 
     public Ball() {
         position = new Vector2(0, 0);
-        velocity = new Vector2(10, 10);
+        velocity = new Vector2(15, 15);
     }
 
     public Vector2 getPosition() {

@@ -13,7 +13,7 @@ public class Renderer {
     SpriteBatch batch;
     BitmapFont font;
     Texture imgBall, imgBrick;
-
+    int screenHeight, screenWidth;
 
     public Renderer(Ball ball) {
         this.ball = ball;
@@ -25,12 +25,17 @@ public class Renderer {
         font.getData().setScale(2);
     }
 
+    public void setScreenSize(int height, int width) {
+        this.screenWidth = width;
+        this.screenHeight = height;
+    }
+
     public void render() {
         batch.begin();
-        for(int i = 0 ; i < 10 ; ++i)
-            for(int j = 0 ; j < 12 ; ++j) {
-                if(Bricks.pattern_1[i][j] == 1) {
-                    batch.draw(imgBrick, (50 + (j * 80)), (Gdx.graphics.getHeight() - (200 + (i * 40))));
+        for(int i = 0 ; i < Bricks.pattern.length ; ++i)
+            for(int j = 0 ; j < Bricks.pattern[i].length ; ++j) {
+                if(Bricks.pattern[i][j] == 1) {
+                    batch.draw(imgBrick, ((j * 72)), (screenHeight - (i * 30)));
                 }
             }
         batch.draw(imgBall, ball.getPosition().x, ball.getPosition().y);
