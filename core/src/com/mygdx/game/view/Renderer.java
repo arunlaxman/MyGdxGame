@@ -7,19 +7,23 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.game.model.Ball;
 import com.mygdx.game.model.Bricks;
+import com.mygdx.game.model.Shooter;
 
 public class Renderer {
     Ball ball;
+    Shooter shooter;
     SpriteBatch batch;
     BitmapFont font;
-    Texture imgBall, imgBrick;
+    Texture imgBall, imgBrick, imgShooter;
     int screenHeight, screenWidth;
 
-    public Renderer(Ball ball) {
+    public Renderer(Ball ball, Shooter shooter) {
         this.ball = ball;
+        this.shooter = shooter;
         batch = new SpriteBatch();
         imgBall = new Texture("orange-ball.png");
         imgBrick = new Texture("rect.png");
+        imgShooter = new Texture("shooter.png");
         font = new BitmapFont();
         font.setColor(Color.BLACK);
         font.getData().setScale(2);
@@ -39,6 +43,7 @@ public class Renderer {
                 }
             }
         batch.draw(imgBall, ball.getPosition().x, ball.getPosition().y);
+        batch.draw(imgShooter, shooter.getPosX1(), 150);
         //font.draw(batch, "Height: " + Gdx.graphics.getHeight(), 300, 300);
         //font.draw(batch, "Width: " + Gdx.graphics.getWidth(), 350, 350);
         batch.end();

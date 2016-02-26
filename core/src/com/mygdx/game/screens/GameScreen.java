@@ -2,6 +2,7 @@ package com.mygdx.game.screens;
 
 import com.mygdx.game.controller.Controller;
 import com.mygdx.game.model.Ball;
+import com.mygdx.game.model.Shooter;
 import com.mygdx.game.view.Renderer;
 
 import com.badlogic.gdx.Application.ApplicationType;
@@ -13,14 +14,19 @@ import com.badlogic.gdx.graphics.GL20;
 
 public class GameScreen implements Screen, InputProcessor {
 
-	private Ball 			ball;
+	private Ball 		ball;
 	private Renderer 	renderer;
 	private Controller	controller;
+	private Shooter 	shooter;
+	private int touchDownX, touchDraggedX;
+	private boolean isTouchedDown;
+	private int screenWidth, screenHeight;
 
 	@Override
 	public void show() {
 		ball = new Ball();
-		renderer = new Renderer(ball);
+		shooter = new Shooter();
+		renderer = new Renderer(ball, shooter);
 		controller = new Controller(ball);
 		Gdx.input.setInputProcessor(this);
 	}
@@ -37,8 +43,11 @@ public class GameScreen implements Screen, InputProcessor {
 	@Override
 	public void resize(int width, int height) {
 		System.out.println("Screen width: " + width + " height: " + height);
+		this.screenWidth = width;
+		this.screenHeight = height;
 		controller.setScreenSize(height, width);
 		renderer.setScreenSize(height, width);
+		shooter.setInitPosX(width);
 	}
 
 	@Override
@@ -83,19 +92,27 @@ public class GameScreen implements Screen, InputProcessor {
 
 	@Override
 	public boolean touchDown(int x, int y, int pointer, int button) {
-		// TODO Auto-generated method stub
+		//System.out.println(x + ", " + (screenHeight - y) + ", " + shooter.getPosX1() + ", " + shooter.getPosX2() + ", " + shooter.getPosY1() + ", " + shooter.getPosY2());
+		if (x >= shooter.getPosX1() && x <= (shooter.getPosX2()) && (screenHeight - y) >= shooter.getPosY1() && (screenHeight - y) <= shooter.getPosY2() ) {
+			touchDownX = x;
+			isTouchedDown = true;
+		}
 		return true;
 	}
 
 	@Override
 	public boolean touchUp(int x, int y, int pointer, int button) {
-		// TODO Auto-generated method stub
+		isTouchedDown = false;
 		return true;
 	}
 
 	@Override
 	public boolean touchDragged(int x, int y, int pointer) {
-		// TODO Auto-generated method stub
+		if(isTouchedDown) {
+			//System.out.println(x + ", " + touchDownX);
+			shooter.movePosX(x - touchDownX);
+			touchDownX = x;
+		}
 		return false;
 	}
 
